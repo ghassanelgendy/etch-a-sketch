@@ -79,11 +79,13 @@ h6 {
 
 
 #canvas {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
     outline: 3px solid red;
     display: flex;
     flex-wrap: wrap;
-    width: 500px;
-    height: 500px;
+
     padding: 0;
     gap: 0;
 }
@@ -96,4 +98,8 @@ h6 {
 
 .colored {
     background-color: black;
+}
+
+.cleared {
+    background-color: white;
 }
