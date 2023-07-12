@@ -91,37 +91,22 @@ startButton.addEventListener(
 		once: true,
 	}
 );
+
 //eventListener for the coloring of the grid
 
-canvas.addEventListener("mousedown", (e) => {
+canvas.addEventListener("mousemove", coloring);
+canvas.addEventListener("touchmove", coloring);
+function coloring(e) {
 	const grid = document.querySelectorAll(".pixel");
-	Array.from(grid);
-	canvas.addEventListener("mousedown", colorGrid, {
-		capture: false,
-		passive: true,
-	});
-
-	function colorGrid(e) {
-		canvas.addEventListener("mousedown", colorGrid, {
-			capture: false,
-			passive: true,
-		});
-
-		canvas.addEventListener("mousemove", colorGrid, {
-			capture: false,
-			passive: true,
-		});
-
-		for (let i = 0; i < grid.length; i++) {
-			if (
-				e.clientX <= grid[i].getBoundingClientRect().right &&
-				e.clientX >= grid[i].getBoundingClientRect().left &&
-				e.clientY <= grid[i].getBoundingClientRect().bottom &&
-				e.clientY >= grid[i].getBoundingClientRect().top &&
-				e.buttons > 0
-			) {
-				grid[i].classList.add("colored");
-			}
+	for (let i = 0; i < grid.length; i++) {
+		if (
+			e.clientX <= grid[i].getBoundingClientRect().right &&
+			e.clientX >= grid[i].getBoundingClientRect().left &&
+			e.clientY <= grid[i].getBoundingClientRect().bottom &&
+			e.clientY >= grid[i].getBoundingClientRect().top &&
+			e.buttons > 0
+		) {
+			grid[i].classList.add("colored");
 		}
 	}
-});
+}
