@@ -51,19 +51,6 @@
 			<div class="radio-button-container">
 				<div class="radio-button">
 					<input
-						value="16"
-						type="radio"
-						class="radio-button__input"
-						id="canvasSize1"
-						checked="checked"
-						name="canvasSize" />
-					<label class="radio-button__label" for="canvasSize1">
-						<span class="radio-button__custom"></span>
-						16px
-					</label>
-				</div>
-				<div class="radio-button">
-					<input
 						value="36"
 						type="radio"
 						class="radio-button__input"
@@ -100,7 +87,7 @@
 				</div>
 				<div class="radio-button">
 					<input
-						value="640"
+						value="625"
 						type="radio"
 						class="radio-button__input"
 						id="canvasSize1"
@@ -108,17 +95,29 @@
 						name="canvasSize" />
 					<label class="radio-button__label" for="canvasSize1">
 						<span class="radio-button__custom"></span>
-						640px
+						625px
+					</label>
+				</div>
+				<div class="radio-button">
+					<input
+						value="900"
+						type="radio"
+						class="radio-button__input"
+						id="canvasSize1"
+						checked="checked"
+						name="canvasSize" />
+					<label class="radio-button__label" for="canvasSize1">
+						<span class="radio-button__custom"></span>
+						900px
 					</label>
 				</div>
 			</div>
 
-			<button class="animated-button" id="startButton">
-				Start Inkspiration!
-			</button>
+			<button class="animated-button" id="startButton">Let's Sketch!</button>
 		</div>
-		<div class="container"></div>
-		<div id="canvas" style="width: 300px; height: 300px"></div>
+		<div class="container">
+			<div id="canvas" style="width: 600px; height: 600px"></div>
+		</div>
 		<script src="./script.js"></script>
 	</body>
 </html>

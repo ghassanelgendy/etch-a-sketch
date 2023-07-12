@@ -79,15 +79,17 @@ h6 {
   overflow-wrap: break-word;
 }
 
+.container {
+  border: 3px solid rgb(141, 96, 96);
+
+}
 
 #canvas {
   -webkit-user-select: none;
   -moz-user-select: none;
   user-select: none;
-  outline: 3px solid rgb(141, 96, 96);
   display: flex;
   flex-wrap: wrap;
-  padding: 0;
   gap: 0;
 }
 
