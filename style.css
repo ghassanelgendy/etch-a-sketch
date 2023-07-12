@@ -84,7 +84,7 @@ h6 {
   -webkit-user-select: none;
   -moz-user-select: none;
   user-select: none;
-  outline: 3px solid red;
+  outline: 3px solid rgb(141, 96, 96);
   display: flex;
   flex-wrap: wrap;
   padding: 0;
@@ -92,13 +92,13 @@ h6 {
 }
 
 .pixel {
-  outline: 1px solid blue;
+  outline: 1px solid rgb(0, 0, 255, 0.1);
   background-color: white;
   margin: 0;
 }
 
 .colored {
-  background-color: red;
+  background-color: rgb(71, 33, 33);
 }
 
 .cleared {

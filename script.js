@@ -3,9 +3,7 @@ const canvasSize = 300;
 const startButton = document.getElementById("startButton");
 const welcomeScreen = document.getElementById("welcomeScreen");
 const pixelGet = document.getElementsByName("canvasSize");
-$(window).on("load", function () {
-	$(".loader-wrapper").fadeOut("slow");
-});
+
 //returns the pixels chosen by user
 function setCanvasSize() {
 	for (let i = 0; i < pixelGet.length; i++) {
@@ -37,7 +35,7 @@ function fadeout(el) {
 	//removes the welcome screen after animating the fade out
 	setTimeout(() => {
 		el.parentElement.remove();
-	}, 510);
+	}, 460);
 }
 
 //set  the pixels chosen by user and runs the generate grid function

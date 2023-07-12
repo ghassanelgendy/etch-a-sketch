@@ -35,7 +35,15 @@
 			content="https://ghassanelgendy.github.io/assets/favicon/browserconfig.xml" />
 		<meta name="theme-color" content="#ffffff" />
 	</head>
+
 	<body draggable="false">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+		<script>
+			$(window).on("load", function () {
+				$(".loader-wrapper").fadeOut("slow");
+			});
+		</script>
 		<div class="loader-wrapper">
 			<span class="loader"></span>
 		</div>
@@ -92,7 +100,7 @@
 				</div>
 				<div class="radio-button">
 					<input
-						value="400"
+						value="640"
 						type="radio"
 						class="radio-button__input"
 						id="canvasSize1"
@@ -100,7 +108,7 @@
 						name="canvasSize" />
 					<label class="radio-button__label" for="canvasSize1">
 						<span class="radio-button__custom"></span>
-						400px
+						640px
 					</label>
 				</div>
 			</div>
@@ -109,7 +117,6 @@
 		</div>
 		<div class="container"></div>
 		<div id="canvas" style="width: 300px; height: 300px"></div>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 		<script src="./script.js"></script>
 	</body>
 </html>
