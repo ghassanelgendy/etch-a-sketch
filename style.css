@@ -303,7 +303,7 @@ h6 {
   background-color: white;
   border-radius: 100px;
   font-weight: 600;
-  color: black;
+  color: #383838;
   box-shadow: 0 0 0 2px #ffffff20;
   cursor: pointer;
   overflow: hidden;
@@ -330,7 +330,7 @@ h6 {
 
 .animated-button:hover {
   box-shadow: 0 0 0 5px #2195f360;
-  color: #ffffff;
+  color: black;
 }
 
 .animated-button:active {
