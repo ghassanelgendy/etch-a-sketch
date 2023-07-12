@@ -2,6 +2,7 @@ const canvas = document.getElementById("canvas");
 const startButton = document.getElementById("startButton");
 const welcomeScreen = document.getElementById("welcomeScreen");
 const pixelGet = document.getElementsByName("canvasSize");
+const root = document.querySelector(":root");
 //checks for device type
 window.mobileCheck = function () {
 	let check = false;
@@ -18,7 +19,7 @@ window.mobileCheck = function () {
 	})(navigator.userAgent || navigator.vendor || window.opera);
 	return check;
 };
-let canvasSize;
+
 //chooses the canvas size (300 => mobile, 600 => desktop)
 if (mobileCheck()) {
 	canvas.style.width = "300px";
@@ -27,7 +28,6 @@ if (mobileCheck()) {
 } else {
 	canvasSize = 600;
 }
-
 //returns the pixels chosen by user
 function setCanvasSize() {
 	for (let i = 0; i < pixelGet.length; i++) {
@@ -68,6 +68,7 @@ console.log(
 	"canvas size: ",
 	canvasSize
 );
+
 //set  the pixels chosen by user and runs the generate grid function
 startButton.addEventListener(
 	"click",
@@ -77,10 +78,12 @@ startButton.addEventListener(
 	},
 	{ once: true }
 );
+
 //if the canvas is empty and the welcome screen is not displayed, generate a grid
 if (!canvas.hasChildNodes() && welcomeScreen.childElementCount === 0) {
 	generateGrid(16, canvasSize);
 }
+
 //fade out the welcome screen
 startButton.addEventListener(
 	"click",
@@ -93,20 +96,47 @@ startButton.addEventListener(
 );
 
 //eventListener for the coloring of the grid
-
 canvas.addEventListener("mousemove", coloring);
+canvas.addEventListener("touchdown", coloring);
 canvas.addEventListener("touchmove", coloring);
 function coloring(e) {
-	const grid = document.querySelectorAll(".pixel");
-	for (let i = 0; i < grid.length; i++) {
-		if (
-			e.clientX <= grid[i].getBoundingClientRect().right &&
-			e.clientX >= grid[i].getBoundingClientRect().left &&
-			e.clientY <= grid[i].getBoundingClientRect().bottom &&
-			e.clientY >= grid[i].getBoundingClientRect().top &&
-			e.buttons > 0
-		) {
-			grid[i].classList.add("colored");
+	if (e.buttons < 2) {
+		const grid = document.querySelectorAll(".pixel");
+		for (let i = 0; i < grid.length; i++) {
+			if (
+				e.clientX <= grid[i].getBoundingClientRect().right &&
+				e.clientX >= grid[i].getBoundingClientRect().left &&
+				e.clientY <= grid[i].getBoundingClientRect().bottom &&
+				e.clientY >= grid[i].getBoundingClientRect().top &&
+				e.buttons > 0
+			) {
+				grid[i].classList.add("colored");
+			}
 		}
 	}
+}
+
+//eventListener for the erasing of the grid
+window.addEventListener("contextmenu", (e) => {
+	e.preventDefault();
+	const grid = document.querySelectorAll(".pixel");
+	for (let i = 0; i < grid.length; i++) {
+		grid[i].classList.remove("colored");
+	}
+});
+
+const chosenColor = document.getElementById("color");
+
+const colorSwatch = document.querySelectorAll(".swatchy-color-button");
+
+colorSwatch.forEach((color) => {
+	color.addEventListener("click", () => {
+		chosenColor.style.color = color.style.backgroundColor;
+		console.log();
+		changeCssColor(chosenColor.style.color);
+	});
+});
+
+function changeCssColor(color) {
+	root.style.setProperty("--coloring", `${color}`);
 }
