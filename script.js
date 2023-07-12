@@ -3,7 +3,9 @@ const canvasSize = 300;
 const startButton = document.getElementById("startButton");
 const welcomeScreen = document.getElementById("welcomeScreen");
 const pixelGet = document.getElementsByName("canvasSize");
-
+$(window).on("load", function () {
+	$(".loader-wrapper").fadeOut("slow");
+});
 //returns the pixels chosen by user
 function setCanvasSize() {
 	for (let i = 0; i < pixelGet.length; i++) {
@@ -29,9 +31,13 @@ function generateGrid(pixels = 16, canvasSize) {
 }
 
 //removes the welcome screen
-function fadeOut(el) {
+function fadeout(el) {
 	el.parentElement.classList.add("faded-out");
-	el.style.display = "none";
+
+	//removes the welcome screen after animating the fade out
+	setTimeout(() => {
+		el.parentElement.remove();
+	}, 510);
 }
 
 //set  the pixels chosen by user and runs the generate grid function
@@ -44,47 +50,49 @@ startButton.addEventListener(
 	{ once: true }
 );
 //if the canvas is empty and the welcome screen is not displayed, generate a grid
-if (!canvas.hasChildNodes() && welcomeScreen.style.display === "none") {
+if (!canvas.hasChildNodes() && welcomeScreen.childElementCount === 0) {
 	generateGrid(16, canvasSize);
 }
 //fade out the welcome screen
 startButton.addEventListener(
 	"click",
 	(e) => {
-		fadeOut(e.target);
+		fadeout(e.target);
 	},
 	{
 		once: true,
 	}
 );
-
-const grid = document.querySelectorAll(".pixel");
-Array.from(grid);
-canvas.addEventListener("mousedown", colorGrid, {
-	capture: false,
-	passive: true,
-});
-
-function colorGrid(e) {
+//eventListener for the coloring of the grid
+canvas.addEventListener("mousedown", (e) => {
+	const grid = document.querySelectorAll(".pixel");
+	Array.from(grid);
 	canvas.addEventListener("mousedown", colorGrid, {
 		capture: false,
 		passive: true,
 	});
 
-	canvas.addEventListener("mousemove", colorGrid, {
-		capture: false,
-		passive: true,
-	});
+	function colorGrid(e) {
+		canvas.addEventListener("mousedown", colorGrid, {
+			capture: false,
+			passive: true,
+		});
 
-	for (let i = 0; i < grid.length; i++) {
-		if (
-			e.clientX <= grid[i].getBoundingClientRect().right &&
-			e.clientX >= grid[i].getBoundingClientRect().left &&
-			e.clientY <= grid[i].getBoundingClientRect().bottom &&
-			e.clientY >= grid[i].getBoundingClientRect().top &&
-			e.buttons > 0
-		) {
-			grid[i].classList.add("colored");
+		canvas.addEventListener("mousemove", colorGrid, {
+			capture: false,
+			passive: true,
+		});
+
+		for (let i = 0; i < grid.length; i++) {
+			if (
+				e.clientX <= grid[i].getBoundingClientRect().right &&
+				e.clientX >= grid[i].getBoundingClientRect().left &&
+				e.clientY <= grid[i].getBoundingClientRect().bottom &&
+				e.clientY >= grid[i].getBoundingClientRect().top &&
+				e.buttons > 0
+			) {
+				grid[i].classList.add("colored");
+			}
 		}
 	}
-}
+});

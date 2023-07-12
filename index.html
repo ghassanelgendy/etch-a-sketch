@@ -36,38 +36,67 @@
 		<meta name="theme-color" content="#ffffff" />
 	</head>
 	<body draggable="false">
-		<div id="welcomeScreen" style="opacity: 0.2" class="welcome-screen">
-			<div class="radio">
-				<input
-					value="16"
-					checked="checked"
-					id="canvasSize"
-					type="radio"
-					name="canvasSize"
-					label="16px" />
-				<input
-					value="36"
-					name="canvasSize"
-					id="canvasSize"
-					type="radio"
-					label="36px" />
-				<input
-					value="64"
-					name="canvasSize"
-					id="canvasSize"
-					type="radio"
-					label="64px" />
-				<input
-					value="100"
-					name="canvasSize"
-					id="canvasSize"
-					type="radio"
-					label="100px" />
+		<div class="loader-wrapper">
+			<span class="loader"></span>
+		</div>
+		<div id="welcomeScreen" class="welcome-screen">
+			<div class="radio-button-container">
+				<div class="radio-button">
+					<input
+						value="16"
+						type="radio"
+						class="radio-button__input"
+						id="canvasSize1"
+						checked="checked"
+						name="canvasSize" />
+					<label class="radio-button__label" for="canvasSize1">
+						<span class="radio-button__custom"></span>
+						16px
+					</label>
+				</div>
+				<div class="radio-button">
+					<input
+						value="36"
+						type="radio"
+						class="radio-button__input"
+						id="canvasSize2"
+						name="canvasSize" />
+					<label class="radio-button__label" for="canvasSize2">
+						<span class="radio-button__custom"></span>
+						36px
+					</label>
+				</div>
+				<div class="radio-button">
+					<input
+						value="64"
+						type="radio"
+						class="radio-button__input"
+						id="canvasSize3"
+						name="canvasSize" />
+					<label class="radio-button__label" for="canvasSize3">
+						<span class="radio-button__custom"></span>
+						64px
+					</label>
+				</div>
+				<div class="radio-button">
+					<input
+						value="100"
+						type="radio"
+						class="radio-button__input"
+						id="canvasSize4"
+						name="canvasSize" />
+					<label class="radio-button__label" for="canvasSize4">
+						<span class="radio-button__custom"></span>
+						100px
+					</label>
+				</div>
 			</div>
-			<button class="start" id="startButton">Start</button>
+
+			<button class="animated-button" id="startButton">Let's Sketch!</button>
 		</div>
 		<div class="container"></div>
 		<div id="canvas" style="width: 300px; height: 300px"></div>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 		<script src="./script.js"></script>
 	</body>
 </html>
