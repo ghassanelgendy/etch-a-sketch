@@ -36,9 +36,38 @@
 		<meta name="theme-color" content="#ffffff" />
 	</head>
 	<body draggable="false">
-		<div class="container">
-			<div id="canvas" style="width: 300px; height: 300px"></div>
+		<div id="welcomeScreen" class="welcome-screen">
+			<div class="radio">
+				<input
+					value="16"
+					checked="checked"
+					id="canvasSize"
+					type="radio"
+					name="canvasSize"
+					label="16px" />
+				<input
+					value="36"
+					name="canvasSize"
+					id="canvasSize"
+					type="radio"
+					label="36px" />
+				<input
+					value="64"
+					name="canvasSize"
+					id="canvasSize"
+					type="radio"
+					label="64px" />
+				<input
+					value="100"
+					name="canvasSize"
+					id="canvasSize"
+					type="radio"
+					label="100px" />
+			</div>
+			<button class="start" id="startButton">Start</button>
 		</div>
+		<div class="container"></div>
+		<div id="canvas" style="width: 300px; height: 300px"></div>
 		<script src="./script.js"></script>
 	</body>
 </html>

@@ -1,9 +1,21 @@
-let pixels = 100;
 const canvas = document.getElementById("canvas");
-const canvasSize = canvas.style.width.slice(0, -2);
+const canvasSize = 300;
+const startButton = document.getElementById("startButton");
+let pixels;
+startButton.addEventListener("click", () => {
+	const welcomeScreen = document.getElementById("welcomeScreen");
+	const pixelGet = document.getElementsByName("canvasSize");
 
-generateGrid(pixels, canvasSize);
-function generateGrid(pixels, canvasSize = 300) {
+	for (let i = 0; i < pixelGet.length; i++) {
+		if (pixelGet[i].checked) {
+			pixels = pixelGet[i].value;
+		}
+	}
+	generateGrid(pixels, canvasSize);
+
+	welcomeScreen.style.display = "none";
+});
+function generateGrid(pixels, canvasSize) {
 	for (let i = 0; i < pixels; i++) {
 		let pixel = document.createElement("div");
 		pixel.classList.add("pixel");
@@ -18,12 +30,12 @@ const grid = document.querySelectorAll(".pixel");
 Array.from(grid);
 
 function colorGrid(e) {
-	canvas.addEventListener(["mousedown" || "touchstart"], colorGrid, {
+	canvas.addEventListener("mousedown", colorGrid, {
 		capture: false,
 		passive: true,
 	});
 
-	canvas.addEventListener(["mousemove" || "touchmove"], colorGrid, {
+	canvas.addEventListener("mousemove", colorGrid, {
 		capture: false,
 		passive: true,
 	});
@@ -40,7 +52,7 @@ function colorGrid(e) {
 		}
 	}
 }
-canvas.addEventListener(["mousedown" || "touchstart"], colorGrid, {
+canvas.addEventListener("mousedown", colorGrid, {
 	capture: false,
 	passive: true,
 });
