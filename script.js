@@ -35,7 +35,6 @@ function setCanvasSize() {
 			pixels = pixelGet[i].value;
 		}
 	}
-	console.log("pixels chosen: ", pixels);
 	return pixels;
 }
 
@@ -60,14 +59,6 @@ function fadeout(el) {
 		el.parentElement.remove();
 	}, 460);
 }
-console.log(
-	"\n",
-	"pixels: ",
-	setCanvasSize(),
-	"\n",
-	"canvas size: ",
-	canvasSize
-);
 
 //set  the pixels chosen by user and runs the generate grid function
 startButton.addEventListener(
@@ -101,7 +92,6 @@ const chosenColor = document.getElementById("color");
 function eraseAll() {
 	const grid = document.querySelectorAll(".pixel");
 	grid.forEach((pixel) => {
-		console.log(pixel.classList.length);
 		if (pixel.classList.length > 1) {
 			pixel.className = "pixel";
 			pixel.style.backgroundColor = "";
@@ -116,25 +106,26 @@ colorSwatch.forEach((color) => {
 		changeCssColor(chosenColor.style.color);
 	});
 });
-
 function colorsChangeable() {
 	const grid = document.querySelectorAll(".pixel");
 	grid.forEach((pixel) => {
-		let pixelColor = getComputedStyle(pixel).backgroundColor;
-		let pixelNonRGB = "c" + pixelColor.replace(/[rgb(), ]/g, "");
-
-		if (pixelColor != "rgb(255, 255, 255)") {
-			pixel.className = `${pixelNonRGB}`;
-			let newColored = document.querySelectorAll(`.${pixelNonRGB}`);
-			newColored.forEach((pixel) => {
+		if (
+			pixel.style.backgroundColor != "" ||
+			pixel.style.backgroundColor != "rgb(255, 255, 255)"
+		) {
+			let pixelColor = getComputedStyle(pixel).backgroundColor;
+			console.log(pixelColor);
+			let pixelNonRGB = "c" + pixelColor.replace(/[rgb(), ]/g, "");
+			pixel.style.backgroundColor = "";
+			if (pixelColor != "rgb(255, 255, 255)") {
+				pixel.className = `${pixelNonRGB}`;
 				pixel.style.backgroundColor = pixelColor;
-			});
-
-			pixel.classList.remove("colored");
-			pixel.classList.add("pixel");
+				pixel.classList.add("pixel");
+			}
 		}
 	});
 }
+
 function changeCssColor(color) {
 	root.style.setProperty("--coloring", `${color}`);
 }
@@ -239,7 +230,6 @@ toggleButton.addEventListener("click", function () {
 function mode(selectedMode) {
 	switch (selectedMode) {
 		case "erase":
-			console.log("Erase mode");
 			canvas.removeEventListener("mousemove", coloring);
 			canvas.removeEventListener("mousedown", coloring);
 			canvas.removeEventListener("touchmove", coloringMobile);
@@ -251,7 +241,6 @@ function mode(selectedMode) {
 			canvas.addEventListener("touchstart", erasingMobile);
 			break;
 		case "draw":
-			console.log("Draw mode");
 			canvas.removeEventListener("mousemove", erasing);
 			canvas.removeEventListener("mousedown", erasing);
 			canvas.removeEventListener("touchmove", erasingMobile);
@@ -263,7 +252,9 @@ function mode(selectedMode) {
 			canvas.addEventListener("touchstart", coloringMobile);
 			break;
 		default:
-			console.log("Invalid mode");
 			break;
 	}
 }
+console.log(
+	"Made by: Ghassan Elgendy :)\nhttps://github.com/ghassanelgendy\nEnjoy!"
+);
