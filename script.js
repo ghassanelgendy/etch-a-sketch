@@ -96,14 +96,13 @@ startButton.addEventListener(
 );
 
 //eventListener for the erasing of the whole grid
-window.addEventListener("contextmenu", (e) => {
-	e.preventDefault();
-	const grid = document.querySelectorAll(".pixel");
-	for (let i = 0; i < grid.length; i++) {
-		grid[i].classList.remove("colored");
-	}
-});
 
+function eraseAll() {
+	const grid = document.querySelectorAll(".pixel");
+	grid.forEach((pixel) => {
+		pixel.classList.remove("colored");
+	});
+}
 const chosenColor = document.getElementById("color");
 
 const colorSwatch = document.querySelectorAll(".swatchy-color-button");
