@@ -145,9 +145,12 @@
       outline: 1px solid rgb(0, 0, 255, 0.05);
       background-color: white;
       margin: 0;
+      position: relative;
     }
 
-
+    .cleared {
+      background-color: white;
+    }
 
     .colored {
       background-color: var(--coloring);

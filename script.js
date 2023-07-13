@@ -101,7 +101,11 @@ const chosenColor = document.getElementById("color");
 function eraseAll() {
 	const grid = document.querySelectorAll(".pixel");
 	grid.forEach((pixel) => {
-		pixel.classList.remove("colored");
+		console.log(pixel.classList.length);
+		if (pixel.classList.length > 1) {
+			pixel.className = "pixel";
+			pixel.style.backgroundColor = "";
+		}
 	});
 }
 const colorSwatch = document.querySelectorAll(".swatchy-color-button");
@@ -120,15 +124,14 @@ function colorsChangeable() {
 		let pixelNonRGB = "c" + pixelColor.replace(/[rgb(), ]/g, "");
 
 		if (pixelColor != "rgb(255, 255, 255)") {
-			pixel.classList.add(`${pixelNonRGB}`);
+			pixel.className = `${pixelNonRGB}`;
 			let newColored = document.querySelectorAll(`.${pixelNonRGB}`);
 			newColored.forEach((pixel) => {
 				pixel.style.backgroundColor = pixelColor;
 			});
 
 			pixel.classList.remove("colored");
-
-			console.log("aaa", pixelColor, "bb", pixel.classList);
+			pixel.classList.add("pixel");
 		}
 	});
 }
@@ -184,7 +187,10 @@ function erasingMobile(e) {
 			e.touches[0].clientY >= rect.top &&
 			e.touches.length > 0
 		) {
-			element.classList.remove("colored");
+			if (element.classList.length > 1) {
+				element.className = "pixel";
+				element.style.backgroundColor = "";
+			}
 		}
 	});
 }
@@ -200,7 +206,10 @@ function erasing(e) {
 			e.clientY >= rect.top &&
 			e.buttons > 0
 		) {
-			element.classList.remove("colored");
+			if (element.classList.length > 1) {
+				element.className = "pixel";
+				element.style.backgroundColor = "";
+			}
 		}
 	});
 }
