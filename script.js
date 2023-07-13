@@ -121,7 +121,6 @@ function colorsChangeable() {
 			pixel.style.backgroundColor != "rgb(255, 255, 255)"
 		) {
 			let pixelColor = getComputedStyle(pixel).backgroundColor;
-			console.log(pixelColor);
 			let pixelNonRGB = "c" + pixelColor.replace(/[rgb(), ]/g, "");
 			pixel.style.backgroundColor = "";
 			if (pixelColor != "rgb(255, 255, 255)") {
@@ -271,5 +270,5 @@ function mode(selectedMode) {
 	}
 }
 console.log(
-	"Made by: Ghassan Elgendy :)\nhttps://github.com/ghassanelgendy\nEnjoy!"
+	"Made by: <Ghassan Elgendy> :)\nhttps://github.com/ghassanelgendy\nEnjoy!"
 );
