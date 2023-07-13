@@ -19,7 +19,7 @@ window.mobileCheck = function () {
 	})(navigator.userAgent || navigator.vendor || window.opera);
 	return check;
 };
-
+let canvasSize;
 //chooses the canvas size (300 => mobile, 600 => desktop)
 if (mobileCheck()) {
 	canvas.style.width = "300px";
@@ -40,7 +40,7 @@ function setCanvasSize() {
 }
 
 //generates the grid
-function generateGrid(pixels = 16, canvasSize) {
+function generateGrid(pixels = 64, canvasSize) {
 	for (let i = 0; i < pixels; i++) {
 		let pixel = document.createElement("div");
 		pixel.classList.add("pixel");
@@ -96,6 +96,7 @@ startButton.addEventListener(
 );
 mode("draw");
 //eventListener for the erasing of the whole grid
+const chosenColor = document.getElementById("color");
 
 function eraseAll() {
 	const grid = document.querySelectorAll(".pixel");
@@ -103,18 +104,34 @@ function eraseAll() {
 		pixel.classList.remove("colored");
 	});
 }
-const chosenColor = document.getElementById("color");
-
 const colorSwatch = document.querySelectorAll(".swatchy-color-button");
-
 colorSwatch.forEach((color) => {
 	color.addEventListener("click", () => {
+		colorsChangeable();
 		chosenColor.style.color = color.style.backgroundColor;
-		console.log();
 		changeCssColor(chosenColor.style.color);
 	});
 });
 
+function colorsChangeable() {
+	const grid = document.querySelectorAll(".pixel");
+	grid.forEach((pixel) => {
+		let pixelColor = getComputedStyle(pixel).backgroundColor;
+		let pixelNonRGB = "c" + pixelColor.replace(/[rgb(), ]/g, "");
+
+		if (pixelColor != "rgb(255, 255, 255)") {
+			pixel.classList.add(`${pixelNonRGB}`);
+			let newColored = document.querySelectorAll(`.${pixelNonRGB}`);
+			newColored.forEach((pixel) => {
+				pixel.style.backgroundColor = pixelColor;
+			});
+
+			pixel.classList.remove("colored");
+
+			console.log("aaa", pixelColor, "bb", pixel.classList);
+		}
+	});
+}
 function changeCssColor(color) {
 	root.style.setProperty("--coloring", `${color}`);
 }
