@@ -57,7 +57,7 @@
 			<span class="loader"> <img src="./coding.png" alt="" /></span>
 			<div class="loading-text">Loading...</div>
 		</div>
-		<div id="welcomeScreen" class="welcome-screen">
+		<div id="welcomeScreen" style="font-weight: 500" class="welcome-screen">
 			<div class="intro">
 				<h2 class="intro__title">Welcome To Inkspiration!</h2>
 				<p class="intro__description">
@@ -138,13 +138,12 @@
 		<div class="main-container">
 			<div class="controls">
 				<div class="tips">
-					<button class="mode" id="draw">
-						<i class="fa-solid fa-paintbrush"></i>
+					<button id="toggleButton" class="active">
+						<i id="toggleIcon" class="fas fa-pencil-alt"></i>
+						<p style="display: inline" id="modeName">Drawing</p>
 					</button>
-					<button class="mode" id="erase">
-						<i class="fa-solid fa-eraser"></i>
-					</button>
-					<button class="mode" onclick="eraseAll()" id="draw">
+					<button class="mode" onclick="eraseAll()" id="eraseAll">
+						Erase All
 						<i class="fa-solid fa-trash"></i>
 					</button>
 				</div>

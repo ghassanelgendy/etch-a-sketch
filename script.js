@@ -94,7 +94,7 @@ startButton.addEventListener(
 		once: true,
 	}
 );
-
+mode("draw");
 //eventListener for the erasing of the whole grid
 
 function eraseAll() {
@@ -119,83 +119,125 @@ function changeCssColor(color) {
 	root.style.setProperty("--coloring", `${color}`);
 }
 
-let mode = "draw";
-
-function modeErase() {
-	mode = "erase";
-}
-
-function modeDraw() {
-	mode = "draw";
-}
-
-//eventListener for the coloring of the grid
-//listening for mouse clicks and mouse movement
-canvas.addEventListener("mousemove", coloring);
-canvas.addEventListener("mousedown", coloring);
-//listening for touches and touch movement
-canvas.addEventListener("touchmove", coloringMobile);
-canvas.addEventListener("touchstart", coloringMobile);
+//------
 
 //coloring function for mobile devices
 function coloringMobile(e) {
 	const grid = document.querySelectorAll(".pixel");
-	for (let i = 0; i < grid.length; i++) {
+	grid.forEach((element) => {
+		const rect = element.getBoundingClientRect();
 		if (
-			e.touches[0].clientX <= grid[i].getBoundingClientRect().right &&
-			e.touches[0].clientX >= grid[i].getBoundingClientRect().left &&
-			e.touches[0].clientY <= grid[i].getBoundingClientRect().bottom &&
-			e.touches[0].clientY >= grid[i].getBoundingClientRect().top &&
+			e.touches[0].clientX <= rect.right &&
+			e.touches[0].clientX >= rect.left &&
+			e.touches[0].clientY <= rect.bottom &&
+			e.touches[0].clientY >= rect.top &&
 			e.touches.length > 0
 		) {
-			grid[i].classList.add("colored");
+			element.classList.add("colored");
 		}
-	}
+	});
 }
-//coloring function for pc
+
 function coloring(e) {
 	if (e.buttons < 2) {
 		const grid = document.querySelectorAll(".pixel");
-		for (let i = 0; i < grid.length; i++) {
+		grid.forEach((element) => {
+			const rect = element.getBoundingClientRect();
 			if (
-				e.clientX <= grid[i].getBoundingClientRect().right &&
-				e.clientX >= grid[i].getBoundingClientRect().left &&
-				e.clientY <= grid[i].getBoundingClientRect().bottom &&
-				e.clientY >= grid[i].getBoundingClientRect().top &&
+				e.clientX <= rect.right &&
+				e.clientX >= rect.left &&
+				e.clientY <= rect.bottom &&
+				e.clientY >= rect.top &&
 				e.buttons > 0
 			) {
-				grid[i].classList.add("colored");
+				element.classList.add("colored");
 			}
-		}
+		});
 	}
 }
+
 function erasingMobile(e) {
 	const grid = document.querySelectorAll(".pixel");
-	for (let i = 0; i < grid.length; i++) {
+	grid.forEach((element) => {
+		const rect = element.getBoundingClientRect();
 		if (
-			e.touches[0].clientX <= grid[i].getBoundingClientRect().right &&
-			e.touches[0].clientX >= grid[i].getBoundingClientRect().left &&
-			e.touches[0].clientY <= grid[i].getBoundingClientRect().bottom &&
-			e.touches[0].clientY >= grid[i].getBoundingClientRect().top &&
+			e.touches[0].clientX <= rect.right &&
+			e.touches[0].clientX >= rect.left &&
+			e.touches[0].clientY <= rect.bottom &&
+			e.touches[0].clientY >= rect.top &&
 			e.touches.length > 0
 		) {
-			grid[i].classList.remove("colored");
+			element.classList.remove("colored");
 		}
-	}
+	});
 }
-function erasing() {
-	if (e.buttons < 2) {
-		const grid = document.querySelectorAll(".pixel");
-		for (let i = 0; i < grid.length; i++) {
-			if (
-				e.clientX <= grid[i].getBoundingClientRect().right &&
-				e.clientX >= grid[i].getBoundingClientRect().left &&
-				e.clientY <= grid[i].getBoundingClientRect().bottom &&
-				e.clientY >= grid[i].getBoundingClientRect().top &&
-				e.buttons > 0
-			) {
-				grid[i].classList.remove("colored");
-			}
+
+function erasing(e) {
+	const grid = document.querySelectorAll(".pixel");
+	grid.forEach((element) => {
+		const rect = element.getBoundingClientRect();
+		if (
+			e.clientX <= rect.right &&
+			e.clientX >= rect.left &&
+			e.clientY <= rect.bottom &&
+			e.clientY >= rect.top &&
+			e.buttons > 0
+		) {
+			element.classList.remove("colored");
 		}
+	});
+}
+const modeName = document.getElementById("modeName");
+const toggleButton = document.getElementById("toggleButton");
+const toggleIcon = document.getElementById("toggleIcon");
+//event listener to the toggle button
+toggleButton.addEventListener("click", function () {
+	// Toggle the active class on the button
+	toggleButton.classList.toggle("active");
+
+	// Update the icon based on the active state
+	if (toggleButton.classList.contains("active")) {
+		mode("draw");
+		modeName.textContent = "Drawing";
+		toggleIcon.classList.remove("fa-eraser"); // Remove the inactive icon class
+		toggleIcon.classList.add("fa-pencil-alt"); // Add the active icon class
+	} else {
+		toggleIcon.classList.remove("fa-pencil-alt");
+		mode("erase");
+		modeName.textContent = "Erasing";
+		// Remove the active icon class
+		toggleIcon.classList.add("fa-eraser"); // Add the inactive icon class
+	}
+});
+
+function mode(selectedMode) {
+	switch (selectedMode) {
+		case "erase":
+			console.log("Erase mode");
+			canvas.removeEventListener("mousemove", coloring);
+			canvas.removeEventListener("mousedown", coloring);
+			canvas.removeEventListener("touchmove", coloringMobile);
+			canvas.removeEventListener("touchstart", coloringMobile);
+
+			canvas.addEventListener("mousemove", erasing);
+			canvas.addEventListener("mousedown", erasing);
+			canvas.addEventListener("touchmove", erasingMobile);
+			canvas.addEventListener("touchstart", erasingMobile);
+			break;
+		case "draw":
+			console.log("Draw mode");
+			canvas.removeEventListener("mousemove", erasing);
+			canvas.removeEventListener("mousedown", erasing);
+			canvas.removeEventListener("touchmove", erasingMobile);
+			canvas.removeEventListener("touchstart", erasingMobile);
+
+			canvas.addEventListener("mousemove", coloring);
+			canvas.addEventListener("mousedown", coloring);
+			canvas.addEventListener("touchmove", coloringMobile);
+			canvas.addEventListener("touchstart", coloringMobile);
+			break;
+		default:
+			console.log("Invalid mode");
+			break;
 	}
 }
