@@ -95,46 +95,6 @@ startButton.addEventListener(
 	}
 );
 
-//eventListener for the coloring of the grid
-//listening for mouse clicks and mouse movement
-canvas.addEventListener("mousemove", coloring);
-canvas.addEventListener("mousedown", coloring);
-//listening for touches and touch movement
-canvas.addEventListener("touchmove", coloringMobile);
-canvas.addEventListener("touchstart", coloring);
-//coloring function for mobile devices
-function coloringMobile(e) {
-	const grid = document.querySelectorAll(".pixel");
-	for (let i = 0; i < grid.length; i++) {
-		if (
-			e.touches[0].clientX <= grid[i].getBoundingClientRect().right &&
-			e.touches[0].clientX >= grid[i].getBoundingClientRect().left &&
-			e.touches[0].clientY <= grid[i].getBoundingClientRect().bottom &&
-			e.touches[0].clientY >= grid[i].getBoundingClientRect().top &&
-			e.touches.length > 0
-		) {
-			grid[i].classList.add("colored");
-		}
-	}
-}
-//coloring function for pc
-function coloring(e) {
-	if (e.buttons < 2) {
-		const grid = document.querySelectorAll(".pixel");
-		for (let i = 0; i < grid.length; i++) {
-			if (
-				e.clientX <= grid[i].getBoundingClientRect().right &&
-				e.clientX >= grid[i].getBoundingClientRect().left &&
-				e.clientY <= grid[i].getBoundingClientRect().bottom &&
-				e.clientY >= grid[i].getBoundingClientRect().top &&
-				e.buttons > 0
-			) {
-				grid[i].classList.add("colored");
-			}
-		}
-	}
-}
-
 //eventListener for the erasing of the whole grid
 window.addEventListener("contextmenu", (e) => {
 	e.preventDefault();
@@ -169,4 +129,74 @@ function modeErase() {
 function modeDraw() {
 	mode = "draw";
 }
-while (mode === "draw") {}
+
+//eventListener for the coloring of the grid
+//listening for mouse clicks and mouse movement
+canvas.addEventListener("mousemove", coloring);
+canvas.addEventListener("mousedown", coloring);
+//listening for touches and touch movement
+canvas.addEventListener("touchmove", coloringMobile);
+canvas.addEventListener("touchstart", coloringMobile);
+
+//coloring function for mobile devices
+function coloringMobile(e) {
+	const grid = document.querySelectorAll(".pixel");
+	for (let i = 0; i < grid.length; i++) {
+		if (
+			e.touches[0].clientX <= grid[i].getBoundingClientRect().right &&
+			e.touches[0].clientX >= grid[i].getBoundingClientRect().left &&
+			e.touches[0].clientY <= grid[i].getBoundingClientRect().bottom &&
+			e.touches[0].clientY >= grid[i].getBoundingClientRect().top &&
+			e.touches.length > 0
+		) {
+			grid[i].classList.add("colored");
+		}
+	}
+}
+//coloring function for pc
+function coloring(e) {
+	if (e.buttons < 2) {
+		const grid = document.querySelectorAll(".pixel");
+		for (let i = 0; i < grid.length; i++) {
+			if (
+				e.clientX <= grid[i].getBoundingClientRect().right &&
+				e.clientX >= grid[i].getBoundingClientRect().left &&
+				e.clientY <= grid[i].getBoundingClientRect().bottom &&
+				e.clientY >= grid[i].getBoundingClientRect().top &&
+				e.buttons > 0
+			) {
+				grid[i].classList.add("colored");
+			}
+		}
+	}
+}
+function erasingMobile(e) {
+	const grid = document.querySelectorAll(".pixel");
+	for (let i = 0; i < grid.length; i++) {
+		if (
+			e.touches[0].clientX <= grid[i].getBoundingClientRect().right &&
+			e.touches[0].clientX >= grid[i].getBoundingClientRect().left &&
+			e.touches[0].clientY <= grid[i].getBoundingClientRect().bottom &&
+			e.touches[0].clientY >= grid[i].getBoundingClientRect().top &&
+			e.touches.length > 0
+		) {
+			grid[i].classList.remove("colored");
+		}
+	}
+}
+function erasing() {
+	if (e.buttons < 2) {
+		const grid = document.querySelectorAll(".pixel");
+		for (let i = 0; i < grid.length; i++) {
+			if (
+				e.clientX <= grid[i].getBoundingClientRect().right &&
+				e.clientX >= grid[i].getBoundingClientRect().left &&
+				e.clientY <= grid[i].getBoundingClientRect().bottom &&
+				e.clientY >= grid[i].getBoundingClientRect().top &&
+				e.buttons > 0
+			) {
+				grid[i].classList.remove("colored");
+			}
+		}
+	}
+}
