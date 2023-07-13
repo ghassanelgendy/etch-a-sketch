@@ -96,9 +96,28 @@ startButton.addEventListener(
 );
 
 //eventListener for the coloring of the grid
+//listening for mouse clicks and mouse movement
 canvas.addEventListener("mousemove", coloring);
-canvas.addEventListener("touchdown", coloring);
-canvas.addEventListener("touchmove", coloring);
+canvas.addEventListener("mousedown", coloring);
+//listening for touches and touch movement
+canvas.addEventListener("touchmove", coloringMobile);
+canvas.addEventListener("touchstart", coloring);
+//coloring function for mobile devices
+function coloringMobile(e) {
+	const grid = document.querySelectorAll(".pixel");
+	for (let i = 0; i < grid.length; i++) {
+		if (
+			e.touches[0].clientX <= grid[i].getBoundingClientRect().right &&
+			e.touches[0].clientX >= grid[i].getBoundingClientRect().left &&
+			e.touches[0].clientY <= grid[i].getBoundingClientRect().bottom &&
+			e.touches[0].clientY >= grid[i].getBoundingClientRect().top &&
+			e.touches.length > 0
+		) {
+			grid[i].classList.add("colored");
+		}
+	}
+}
+//coloring function for pc
 function coloring(e) {
 	if (e.buttons < 2) {
 		const grid = document.querySelectorAll(".pixel");
@@ -116,7 +135,7 @@ function coloring(e) {
 	}
 }
 
-//eventListener for the erasing of the grid
+//eventListener for the erasing of the whole grid
 window.addEventListener("contextmenu", (e) => {
 	e.preventDefault();
 	const grid = document.querySelectorAll(".pixel");
@@ -140,3 +159,14 @@ colorSwatch.forEach((color) => {
 function changeCssColor(color) {
 	root.style.setProperty("--coloring", `${color}`);
 }
+
+let mode = "draw";
+
+function modeErase() {
+	mode = "erase";
+}
+
+function modeDraw() {
+	mode = "draw";
+}
+while (mode === "draw") {}
