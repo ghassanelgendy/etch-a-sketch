@@ -119,8 +119,12 @@
     }
 
     .tips {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+
       margin: 0.5rem 0 0.5rem;
-      text-align: center;
       color: black;
       font-weight: 600;
       line-height: 2;
@@ -128,7 +132,7 @@
       border-top: 1px black solid;
       border-left: 3px black solid;
       border-right: 2.5px black solid;
-      padding: 8px;
+      padding: 0.7rem;
       border-radius: 1.1rem;
       background-color: #e7e7e7;
       -webkit-border-radius: 1.1rem;
@@ -138,7 +142,7 @@
     }
 
     .pixel {
-      outline: 1px solid rgb(0, 0, 255, 0.1);
+      outline: 1px solid rgb(0, 0, 255, 0.05);
       background-color: white;
       margin: 0;
     }
@@ -483,17 +487,19 @@
       margin-top: auto;
     }
 
-    #toggleButton {
-      background-color: #e7e7e7;
-      cursor: pointer;
-    }
 
-    #toggleButton i {
+
+    i {
       display: inline-block;
       margin-right: 4px;
+      margin-left: 2px;
     }
 
-    #eraseAll {
+    .zorar {
       background-color: #e7e7e7;
       cursor: pointer;
+    }
+
+    #mid {
+      justify-content: center;
     }

@@ -138,20 +138,23 @@
 		<div class="main-container">
 			<div class="controls">
 				<div class="tips">
-					<button id="toggleButton" class="active">
+					<button id="toggleButton" class="active zorar">
 						<i id="toggleIcon" class="fas fa-pencil-alt"></i>
 						<p style="display: inline" id="modeName">Drawing</p>
 					</button>
-					<button class="mode" onclick="eraseAll()" id="eraseAll">
-						Erase All
+					<button class="mode zorar" onclick="eraseAll()" id="eraseAll">
 						<i class="fa-solid fa-trash"></i>
+
+						Erase All
 					</button>
 				</div>
-				<div class="tips">
-					<p>
-						Click on a color to select it <br />
-						Right click to erase all
-					</p>
+				<div class="tips" id="mid">
+					<a href="#">
+						<button class="mode zorar mid">
+							<i class="fa-solid fa-image"></i>
+							Gallery
+						</button>
+					</a>
 				</div>
 				<div class="colors">
 					<button class="swatchy-button swatchy-trigger">
