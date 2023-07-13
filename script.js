@@ -106,6 +106,13 @@ colorSwatch.forEach((color) => {
 		changeCssColor(chosenColor.style.color);
 	});
 });
+function randomize() {}
+function erase(element) {
+	if (element.classList.length > 1) {
+		element.className = "pixel";
+		element.style.backgroundColor = "";
+	}
+}
 function colorsChangeable() {
 	const grid = document.querySelectorAll(".pixel");
 	grid.forEach((pixel) => {
@@ -144,6 +151,7 @@ function coloringMobile(e) {
 			e.touches[0].clientY >= rect.top &&
 			e.touches.length > 0
 		) {
+			erase(element);
 			element.classList.add("colored");
 		}
 	});
@@ -161,6 +169,7 @@ function coloring(e) {
 				e.clientY >= rect.top &&
 				e.buttons > 0
 			) {
+				erase(element);
 				element.classList.add("colored");
 			}
 		});
@@ -251,6 +260,12 @@ function mode(selectedMode) {
 			canvas.addEventListener("touchmove", coloringMobile);
 			canvas.addEventListener("touchstart", coloringMobile);
 			break;
+		// case "random":
+		// 	canvas.addEventListener("mousemove", randomizing);
+		// 	canvas.addEventListener("mousedown", randomizing);
+		// 	canvas.addEventListener("touchmove", randomizing);
+		// 	canvas.addEventListener("touchstart", randomizing);
+		// 	break;
 		default:
 			break;
 	}
