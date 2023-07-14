@@ -530,7 +530,6 @@
       justify-content: center;
       flex-wrap: wrap;
       gap: 1rem;
-      border: red solid 1px;
       padding: 2rem;
       width: 100%;
       align-content: flex-start;
