@@ -506,3 +506,39 @@
     .mid {
       justify-content: center;
     }
+
+    /* GALLERY STYLING */
+    .card {
+      width: 240px;
+      height: 260px;
+      border-bottom: #162E3B solid 5px;
+      background: rgb(236, 236, 236);
+      box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+    }
+
+    .card-container_gallery {
+      overflow: auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 2rem;
+      padding: 0 2rem;
+      padding-bottom: 0;
+      width: 100%;
+      align-content: flex-start;
+    }
+
+    .title__gallery {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100vw;
+    }
+
+    .title_gallery {
+      color: #162E3B;
+      margin-top: 2rem;
+      text-align: center;
+      margin-bottom: 1rem;
+      flex: 1;
+    }

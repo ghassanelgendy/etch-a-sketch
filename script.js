@@ -106,7 +106,7 @@ colorSwatch.forEach((color) => {
 		changeCssColor(chosenColor.style.color);
 	});
 });
-function randomize() {}
+
 function erase(element) {
 	if (element.classList.length > 1) {
 		element.className = "pixel";
@@ -215,7 +215,9 @@ function erasing(e) {
 const modeName = document.getElementById("modeName");
 const toggleButton = document.getElementById("toggleButton");
 const toggleIcon = document.getElementById("toggleIcon");
+
 //event listener to the toggle button
+
 toggleButton.addEventListener("click", function () {
 	// Toggle the active class on the button
 	toggleButton.classList.toggle("active");
@@ -259,12 +261,7 @@ function mode(selectedMode) {
 			canvas.addEventListener("touchmove", coloringMobile);
 			canvas.addEventListener("touchstart", coloringMobile);
 			break;
-		// case "random":
-		// 	canvas.addEventListener("mousemove", randomizing);
-		// 	canvas.addEventListener("mousedown", randomizing);
-		// 	canvas.addEventListener("touchmove", randomizing);
-		// 	canvas.addEventListener("touchstart", randomizing);
-		// 	break;
+
 		default:
 			break;
 	}
