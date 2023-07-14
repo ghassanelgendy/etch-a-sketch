@@ -3,6 +3,11 @@ const startButton = document.getElementById("startButton");
 const welcomeScreen = document.getElementById("welcomeScreen");
 const pixelGet = document.getElementsByName("canvasSize");
 const root = document.querySelector(":root");
+const modeName = document.getElementById("modeName");
+const toggleButton = document.getElementById("toggleButton");
+const toggleIcon = document.getElementById("toggleIcon");
+const chosenColor = document.getElementById("color");
+const colorSwatch = document.querySelectorAll(".swatchy-color-button");
 //checks for device type
 window.mobileCheck = function () {
 	let check = false;
@@ -20,7 +25,7 @@ window.mobileCheck = function () {
 	return check;
 };
 let canvasSize;
-//chooses the canvas size (300 => mobile, 600 => desktop)
+//chooses the canvas size (300px => mobile, 600px => desktop)
 if (mobileCheck()) {
 	canvas.style.width = "300px";
 	canvas.style.height = "300px";
@@ -37,7 +42,6 @@ function setCanvasSize() {
 	}
 	return pixels;
 }
-
 //generates the grid
 function generateGrid(pixels = 64, canvasSize) {
 	for (let i = 0; i < pixels; i++) {
@@ -49,7 +53,6 @@ function generateGrid(pixels = 64, canvasSize) {
 		canvas.appendChild(pixel);
 	}
 }
-
 //removes the welcome screen
 function fadeout(el) {
 	el.parentElement.classList.add("faded-out");
@@ -59,36 +62,7 @@ function fadeout(el) {
 		el.parentElement.remove();
 	}, 460);
 }
-
-//set  the pixels chosen by user and runs the generate grid function
-startButton.addEventListener(
-	"click",
-	() => {
-		const pixels = setCanvasSize();
-		generateGrid(pixels, canvasSize);
-	},
-	{ once: true }
-);
-
-//if the canvas is empty and the welcome screen is not displayed, generate a grid
-if (!canvas.hasChildNodes() && welcomeScreen.childElementCount === 0) {
-	generateGrid(16, canvasSize);
-}
-
-//fade out the welcome screen
-startButton.addEventListener(
-	"click",
-	(e) => {
-		fadeout(e.target);
-	},
-	{
-		once: true,
-	}
-);
-mode("draw");
-//eventListener for the erasing of the whole grid
-const chosenColor = document.getElementById("color");
-
+//erase all grid
 function eraseAll() {
 	const grid = document.querySelectorAll(".pixel");
 	grid.forEach((pixel) => {
@@ -98,21 +72,14 @@ function eraseAll() {
 		}
 	});
 }
-const colorSwatch = document.querySelectorAll(".swatchy-color-button");
-colorSwatch.forEach((color) => {
-	color.addEventListener("click", () => {
-		colorsChangeable();
-		chosenColor.style.color = color.style.backgroundColor;
-		changeCssColor(chosenColor.style.color);
-	});
-});
-
+//erasing function
 function erase(element) {
 	if (element.classList.length > 1) {
 		element.className = "pixel";
 		element.style.backgroundColor = "";
 	}
 }
+//passing the old color to a class named with its rgb value
 function colorsChangeable() {
 	const grid = document.querySelectorAll(".pixel");
 	grid.forEach((pixel) => {
@@ -131,13 +98,10 @@ function colorsChangeable() {
 		}
 	});
 }
-
+//change the current color
 function changeCssColor(color) {
 	root.style.setProperty("--coloring", `${color}`);
 }
-
-//------
-
 //coloring function for mobile devices
 function coloringMobile(e) {
 	const grid = document.querySelectorAll(".pixel");
@@ -155,7 +119,7 @@ function coloringMobile(e) {
 		}
 	});
 }
-
+//coloring on the grid desktop
 function coloring(e) {
 	if (e.buttons < 2) {
 		const grid = document.querySelectorAll(".pixel");
@@ -174,7 +138,7 @@ function coloring(e) {
 		});
 	}
 }
-
+//erasing function for mobile devices
 function erasingMobile(e) {
 	const grid = document.querySelectorAll(".pixel");
 	grid.forEach((element) => {
@@ -193,7 +157,7 @@ function erasingMobile(e) {
 		}
 	});
 }
-
+//eraser function for desktop
 function erasing(e) {
 	const grid = document.querySelectorAll(".pixel");
 	grid.forEach((element) => {
@@ -212,31 +176,7 @@ function erasing(e) {
 		}
 	});
 }
-const modeName = document.getElementById("modeName");
-const toggleButton = document.getElementById("toggleButton");
-const toggleIcon = document.getElementById("toggleIcon");
-
-//event listener to the toggle button
-
-toggleButton.addEventListener("click", function () {
-	// Toggle the active class on the button
-	toggleButton.classList.toggle("active");
-
-	// Update the icon based on the active state
-	if (toggleButton.classList.contains("active")) {
-		mode("draw");
-		modeName.textContent = "Drawing";
-		toggleIcon.classList.remove("fa-eraser"); // Remove the inactive icon class
-		toggleIcon.classList.add("fa-pencil-alt"); // Add the active icon class
-	} else {
-		toggleIcon.classList.remove("fa-pencil-alt");
-		mode("erase");
-		modeName.textContent = "Erasing";
-		// Remove the active icon class
-		toggleIcon.classList.add("fa-eraser"); // Add the inactive icon class
-	}
-});
-
+//function to change the pen mode
 function mode(selectedMode) {
 	switch (selectedMode) {
 		case "erase":
@@ -266,6 +206,53 @@ function mode(selectedMode) {
 			break;
 	}
 }
+//set  the pixels chosen by user and runs the generate grid function
+startButton.addEventListener(
+	"click",
+	() => {
+		const pixels = setCanvasSize();
+		generateGrid(pixels, canvasSize);
+	},
+	{ once: true }
+);
+//fade out the welcome screen
+startButton.addEventListener(
+	"click",
+	(e) => {
+		fadeout(e.target);
+	},
+	{
+		once: true,
+	}
+);
+mode("draw");
+colorSwatch.forEach((color) => {
+	color.addEventListener("click", () => {
+		colorsChangeable();
+		chosenColor.style.color = color.style.backgroundColor;
+		changeCssColor(chosenColor.style.color);
+	});
+});
+//event listener to the toggle button
+toggleButton.addEventListener("click", function () {
+	// Toggle the active class on the button
+	toggleButton.classList.toggle("active");
+
+	// Update the icon based on the active state
+	if (toggleButton.classList.contains("active")) {
+		mode("draw");
+		modeName.textContent = "Drawing";
+		toggleIcon.classList.remove("fa-eraser"); // Remove the inactive icon class
+		toggleIcon.classList.add("fa-pencil-alt"); // Add the active icon class
+	} else {
+		toggleIcon.classList.remove("fa-pencil-alt");
+		mode("erase");
+		modeName.textContent = "Erasing";
+		// Remove the active icon class
+		toggleIcon.classList.add("fa-eraser"); // Add the inactive icon class
+	}
+});
+//you made it to the end of the code :D , here's a cookie for you 🍪
 console.log(
 	"Made by: <Ghassan Elgendy> :)\nhttps://github.com/ghassanelgendy\nEnjoy!"
 );
